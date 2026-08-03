@@ -3,8 +3,8 @@
  *
  * 1. Starts a local HTTP server to serve pluto_continuous_demo.html
  * 2. Uses Puppeteer (headless Chrome) to load the page
- * 3. Waits for texture load, sets rotation speed to max
- * 4. Captures frames at 30fps for two full rotations (~12.5s)
+ * 3. Waits for texture load, sets rotation speed to 1.4 (30% slower)
+ * 4. Captures frames at 10fps for two full rotations (~18s)
  * 5. Combines into APNG via ffmpeg
  *
  * Output: pluto_two_rotations_apng.png
@@ -22,13 +22,13 @@ const HEIGHT = 540;
 const FPS = 10;
 const ROTATIONS = 2;
 
-// At speed=2.0: rotation rate = speed * 0.5 = 1.0 rad/s
-// One rotation = 2pi radians -> 6.283s
-// Two rotations -> 12.566s
-const ROTATION_RATE = 2.0 * 0.5; // 1.0 rad/s
-const ONE_ROTATION_TIME = (2 * Math.PI) / ROTATION_RATE; // ~6.283s
-const DURATION = ONE_ROTATION_TIME * ROTATIONS; // ~12.566s
-const FRAME_COUNT = Math.ceil(FPS * DURATION); // ~377 frames
+// At speed=1.4: rotation rate = speed * 0.5 = 0.7 rad/s (30% slower than speed=2.0)
+// One rotation = 2pi radians -> 8.976s
+// Two rotations -> 17.951s
+const ROTATION_RATE = 1.4 * 0.5; // 0.7 rad/s
+const ONE_ROTATION_TIME = (2 * Math.PI) / ROTATION_RATE; // ~8.976s
+const DURATION = ONE_ROTATION_TIME * ROTATIONS; // ~17.951s
+const FRAME_COUNT = Math.ceil(FPS * DURATION); // ~180 frames
 
 const FRAMES_DIR = '/tmp/pluto-frames';
 const PROJECT_DIR = path.dirname(fileURLToPath(import.meta.url));
@@ -108,14 +108,14 @@ const server = http.createServer((req, res) => {
   // Wait extra for first frame to draw
   await new Promise(r => setTimeout(r, 1000));
 
-  // Set rotation speed to max (2.0) for faster capture
+  // Set rotation speed to 1.4 (30% slower than max 2.0)
   const speedSlider = await page.$('#speed');
   if (speedSlider) {
-    await speedSlider.evaluate(el => el.value = '2.0');
+    await speedSlider.evaluate(el => el.value = '1.4');
     await speedSlider.evaluate(el => {
       el.dispatchEvent(new Event('input', { bubbles: true }));
     });
-    console.log('[capture] Set rotation speed to 2.0');
+    console.log('[capture] Set rotation speed to 1.4');
   }
 
   // Hide UI for clean Pluto-only capture (no GUI in APNG)

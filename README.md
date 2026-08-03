@@ -8,7 +8,7 @@ APNG showing two full rotations.
 
 ![Pluto – two full rotations](https://github.com/frankhouston/pluto-continuous-sphere/releases/download/pluto-is-a-planet/pluto_two_rotations_apng.png)
 
-> **960×540 · 10fps · 12.6s · 2 rotations · Pluto only (no GUI) — [Download full 42.7MB APNG](https://github.com/frankhouston/pluto-continuous-sphere/releases/download/pluto-is-a-planet/pluto_two_rotations_apng.png)**
+> **960×540 · 7fps · 18s · 2 rotations · Pluto only (no GUI) — [Download full 29.7MB APNG](https://github.com/frankhouston/pluto-continuous-sphere/releases/download/pluto-is-a-planet/pluto_two_rotations_apng.png)**
 
 ## Features
 
@@ -34,7 +34,7 @@ APNG showing two full rotations.
 | `enhanced_pluto_color.png` | Extracted color texture map |
 | `enhanced_pluto_bump.png` | Extracted bump map |
 | `enhanced_pluto_critical_data.json` | Critical parameters and code extraction |
-| `pluto_two_rotations_apng.png` | Animated PNG (2 rotations, 42.7MB) — download from [GitHub Release](https://github.com/frankhouston/pluto-continuous-sphere/releases) |
+| `pluto_two_rotations_apng.png` | Animated PNG (2 rotations, 29.7MB) — [download from GitHub Release](https://github.com/frankhouston/pluto-continuous-sphere/releases) |
 
 ## Usage
 
@@ -42,9 +42,9 @@ APNG showing two full rotations.
 
 ```bash
 # Start a local server
-npx serve . -p 8399
+npx serve . -p 8400
 
-# Open http://localhost:8399/pluto_continuous_demo.html
+# Open http://localhost:8400/pluto_continuous_demo.html
 ```
 
 ### Capture Animated PNG
@@ -54,15 +54,16 @@ npm install puppeteer  # one-time setup
 node capture_pluto_apng.js
 ```
 
-The capture script starts a local HTTP server, launches headless Chrome with
-SwiftShader WebGL, hides the UI for a clean Pluto-only capture, and combines
-frames into an APNG via ffmpeg.
+The capture script starts a local HTTP server on port 8399, launches headless Chrome with
+SwiftShader WebGL, sets rotation speed to 1.4 (30% slower than max), hides the UI for a
+clean Pluto-only capture, and combines frames into an APNG via ffmpeg at 10fps.
 
 ## Technical Details
 
 - **Resolution**: 960×540 (540p)
-- **Frame rate**: 10fps
-- **Duration**: ~12.6 seconds (2 full rotations at max speed)
+- **Frame rate**: 7fps (APNG asset) · 10fps (capture script output)
+- **Duration**: ~18 seconds (2 full rotations at 30% reduced speed)
+- **Frame count**: 126 frames (APNG asset) · ~180 frames (capture script output)
 - **Encoding**: APNG (lossless RGBA, paeth predictor, infinite loop)
 
 ## Author
