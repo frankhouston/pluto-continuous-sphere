@@ -1,0 +1,5 @@
+node_modules/
+*.gguf
+mmproj-*.gguf
+.DS_Store
+.claude/
