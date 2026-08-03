@@ -1,6 +1,6 @@
-# Pluto – Continuous Sphere
+# Pluto is a Planet
 
-A transmorphic 3D visualization of Pluto projected onto a globe, featuring procedural
+A 3D visualization of Pluto projected onto a globe, featuring procedural
 fractal interpolation for the southern hemisphere, texture switching, and an animated
 APNG showing two full rotations.
 
