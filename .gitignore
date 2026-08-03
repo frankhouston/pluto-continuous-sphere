@@ -3,3 +3,5 @@ node_modules/
 mmproj-*.gguf
 .DS_Store
 .claude/
+
+pluto_two_rotations_apng.png
